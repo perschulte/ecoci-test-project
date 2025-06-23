@@ -1,0 +1,15 @@
+{
+  "name": "ecoci-test-project",
+  "version": "1.0.0",
+  "description": "Test project for EcoCI GitHub Action",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js",
+    "build": "echo 'Building project...' && sleep 2 && echo 'Build complete!'",
+    "heavy-task": "node heavy-computation.js",
+    "quick-task": "echo 'Quick task completed'"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "keywords": ["ecoci", "test", "ci", "co2", "energy"]
+}

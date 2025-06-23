@@ -1,0 +1,75 @@
+name: Test with EcoCI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  test-quick-tasks:
+    runs-on: ubuntu-latest
+    name: Test Quick Tasks
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          
+      - name: Measure npm test
+        uses: perschulte/ecoci@main  # Wird auf dein EcoCI Repo zeigen
+        with:
+          command: 'npm test'
+          electricity-maps-api-key: ${{ secrets.ELECTRICITY_MAPS_API_KEY }}
+          
+      - name: Measure quick task
+        uses: perschulte/ecoci@main
+        with:
+          command: 'npm run quick-task'
+          electricity-maps-api-key: ${{ secrets.ELECTRICITY_MAPS_API_KEY }}
+
+  test-heavy-tasks:
+    runs-on: ubuntu-latest
+    name: Test Heavy Tasks
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          
+      - name: Measure build process
+        uses: perschulte/ecoci@main
+        with:
+          command: 'npm run build'
+          electricity-maps-api-key: ${{ secrets.ELECTRICITY_MAPS_API_KEY }}
+          
+      - name: Measure heavy computation
+        uses: perschulte/ecoci@main
+        with:
+          command: 'npm run heavy-task'
+          electricity-maps-api-key: ${{ secrets.ELECTRICITY_MAPS_API_KEY }}
+
+  test-with-badge:
+    runs-on: ubuntu-latest
+    name: Test with Badge Generation
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Measure with badge
+        uses: perschulte/ecoci@main
+        with:
+          command: 'echo "Badge test"'
+          badge: 'true'
+          token: ${{ secrets.GITHUB_TOKEN }}
+          electricity-maps-api-key: ${{ secrets.ELECTRICITY_MAPS_API_KEY }}
